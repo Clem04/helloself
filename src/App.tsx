@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import Form from "./components/MemberForm";
 
 function App() {
   return (
@@ -9,38 +10,7 @@ function App() {
       </header>
 
       <div className="App-content">
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            margin: "30px",
-            gap: "15px",
-          }}
-        >
-          <b>Form</b>
-          <div>
-            <label htmlFor="title">Title:</label>
-            <input type="text" id="title" name="title" />
-          </div>
-          <div>
-            <label htmlFor="name">Name:</label>
-            <input type="text" id="name" name="name" />
-          </div>
-          <div>
-            <label htmlFor="age">Age:</label>
-            <input type="text" id="age" name="age" />
-          </div>
-          <div>
-            <label htmlFor="email">Email:</label>
-            <input type="text" id="email" name="email" />
-          </div>
-          <div>
-            <label htmlFor="phone">Phone:</label>
-            <input type="text" id="phone" name="phone" />
-          </div>
-
-          <button>Submit</button>
-        </div>
+        <Form />
 
         <div
           style={{
