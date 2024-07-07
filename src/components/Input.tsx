@@ -1,13 +1,12 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { ChangeEvent } from 'react';
 import { ReusableInputProps } from '../types';
 
-const ReusableInput: React.FC<ReusableInputProps> = ({ label, name, type, validate, errorMessage }) => {
-  const [value, setValue] = useState<string>('');
-  const [error, setError] = useState<string>('');
+const ReusableInput: React.FC<ReusableInputProps> = ({ label, name, type, validate, errorMessage, value, onChange }) => {
+  const [error, setError] = React.useState<string>('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
-    setValue(newValue);
+    onChange(e);
     if (validate) {
       const validationError = validate(newValue);
       setError(validationError);
