@@ -1,94 +1,37 @@
-import React from "react";
-import "./App.css";
-import Form from "./components/MemberForm";
+import { useEffect, useState } from 'react';
+import Form from "./components/MemberForm/MemberForm";
+import { getLocalStorageData } from './utils/localStorageUtils';
+import { BoardData } from './shared/types';
+import { BOARD_DATA_KEY, BOARD_SECTIONS } from './shared/constants'; 
+import Board from './components/Board/Board';
+import { AppContainer, Header } from './AppStyles';
 
 function App() {
+  const [boardData, setBoardData] = useState<BoardData>({
+    unclaimed: [],
+    firstContact: [],
+    preparingWorkOffer: [],
+    sentToTherapist: []
+  });
+
+  useEffect(() => {
+    const data = getLocalStorageData(BOARD_DATA_KEY, {
+      unclaimed: [],
+      firstContact: [],
+      preparingWorkOffer: [],
+      sentToTherapist: []
+    });
+    setBoardData(data);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
+    <AppContainer>
+      <Header>
         <b>Kanban Board</b>
-      </header>
-
-      <div className="App-content">
-        <Form />
-
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            width: "100%",
-            textAlign: "center",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              height: "100%",
-              justifyContent: "space-between",
-              gap: "10px",
-            }}
-          >
-            <div
-              style={{
-                flexBasis: "100%",
-              }}
-            >
-              <b>Unclaimed</b>
-              <div
-                style={{
-                  background: "blue",
-                  border: "1px solid white",
-                  height: "100%",
-                }}
-              ></div>
-            </div>
-            <div
-              style={{
-                flexBasis: "100%",
-              }}
-            >
-              <b>First Contact</b>
-              <div
-                style={{
-                  background: "blue",
-                  border: "1px solid white",
-                  height: "100%",
-                }}
-              ></div>
-            </div>
-            <div
-              style={{
-                flexBasis: "100%",
-              }}
-            >
-              <b>Preparing Work Offer</b>
-              <div
-                style={{
-                  background: "blue",
-                  border: "1px solid white",
-                  height: "100%",
-                }}
-              ></div>
-            </div>
-            <div
-              style={{
-                flexBasis: "100%",
-              }}
-            >
-              <b>Send to Therapists</b>
-              <div
-                style={{
-                  background: "blue",
-                  border: "1px solid white",
-                  height: "100%",
-                }}
-              ></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      </Header>
+      <Form />
+      <Board boardData={boardData} boardSections={BOARD_SECTIONS} />
+    </AppContainer>
   );
 }
 
