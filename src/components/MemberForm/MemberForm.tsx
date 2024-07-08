@@ -31,7 +31,7 @@ const MemberForm: React.FC = () => {
     const newMember = {
       title,
       name,
-      age,
+      age: parseInt(age, 10),
       email,
       phone
     };

@@ -4,7 +4,7 @@ import { getLocalStorageData } from './utils/localStorageUtils';
 import { BoardData } from './shared/types';
 import { BOARD_DATA_KEY, BOARD_SECTIONS } from './shared/constants'; 
 import Board from './components/Board/Board';
-import { Container, Header } from './AppStyles';
+import { AppContainer, Header } from './AppStyles';
 
 function App() {
   const [boardData, setBoardData] = useState<BoardData>({
@@ -25,13 +25,13 @@ function App() {
   }, []);
 
   return (
-    <Container>
+    <AppContainer>
       <Header>
         <b>Kanban Board</b>
       </Header>
       <Form />
       <Board boardData={boardData} boardSections={BOARD_SECTIONS} />
-    </Container>
+    </AppContainer>
   );
 }
 

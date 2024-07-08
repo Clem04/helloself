@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const AppContainer = styled.div`
   background-color: #D2E4ED;
   min-height: 100vh;
   padding: 20px;

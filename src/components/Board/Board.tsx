@@ -1,11 +1,11 @@
 import React from 'react';
 import { BoardProps } from '../../shared/types';
 import BoardColumn from '../BoardColumn/BoardColumn';
-import { ColumnContainer } from './BoardStyles';
+import { BoardContainer } from './BoardStyles';
 
 const Board: React.FC<BoardProps> = ({ boardData, boardSections }) => {
   return (
-    <ColumnContainer>
+    <BoardContainer>
       <BoardColumn
         header={boardSections.UNCLAIMED}
         items={boardData.unclaimed}
@@ -22,7 +22,7 @@ const Board: React.FC<BoardProps> = ({ boardData, boardSections }) => {
         header={boardSections.SENT_TO_THERAPISTS}
         items={boardData.sentToTherapist}
       />
-    </ColumnContainer>
+    </BoardContainer>
   );
 };
 

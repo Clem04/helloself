@@ -10,11 +10,18 @@ export interface ReusableInputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+export interface BoardItem {
+  name: string;
+  age: number;
+  email: string;
+  phone: string;
+}
+
 export interface BoardData {
-  unclaimed: object[];
-  firstContact: object[];
-  preparingWorkOffer: object[];
-  sentToTherapist: object[];
+  unclaimed: BoardItem[];
+  firstContact: BoardItem[];
+  preparingWorkOffer: BoardItem[];
+  sentToTherapist: BoardItem[];
 }
 
 export interface BoardProps {
@@ -24,5 +31,5 @@ export interface BoardProps {
 
 export interface BoardColumnProps {
   header: string;
-  items: any[];
+  items: BoardItem[];
 }
