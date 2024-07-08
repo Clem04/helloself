@@ -10,7 +10,11 @@ export interface ReusableInputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+export interface MemberFormProps {
+  updateBoardData: (newBoardData: BoardData) => void;
+}
 export interface BoardItem {
+  id: string;
   name: string;
   age: number;
   email: string;

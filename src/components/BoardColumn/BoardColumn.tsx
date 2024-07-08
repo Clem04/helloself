@@ -19,6 +19,7 @@ const BoardColumn: React.FC<BoardColumnProps> = ({ header, items }) => {
       <Section>
         {items.map((item, index) => (
            <Card
+            id={item.id}
             key={index}
             name={item.name}
             age={item.age}

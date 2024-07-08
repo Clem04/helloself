@@ -5,6 +5,7 @@ import { initializeLocalStorage, getLocalStorageData, saveLocalStorageData } fro
 import { BoardData, BoardItem } from '../../shared/types';
 import { BOARD_DATA_KEY } from '../../shared/constants';
 import { createNewItem } from '../../utils/uniqueIdUtils';
+import { MemberFormProps } from '../../shared/types';
 
 const defaultBoardData: BoardData = {
   unclaimed: [],
@@ -13,7 +14,8 @@ const defaultBoardData: BoardData = {
   sentToTherapist: []
 };
 
-const MemberForm: React.FC = () => {
+const MemberForm: React.FC<MemberFormProps> = ({ updateBoardData }) => {
+
   const [boardData, setBoardData] = useState<BoardData>(defaultBoardData);
 
   useEffect(() => {
@@ -56,7 +58,7 @@ const MemberForm: React.FC = () => {
     saveLocalStorageData(BOARD_DATA_KEY, updatedBoardData);
 
     // Update the state with the new board data
-    setBoardData(updatedBoardData);
+    updateBoardData(updatedBoardData);
 
     // Reset the form
     setTitle('');

@@ -9,9 +9,9 @@ import {
 } from './CardStyles'
 import { BoardItem } from '../../shared/types';
 
-const Card: React.FC<BoardItem> = ({ name, age, email, phone }) => {
+const Card: React.FC<BoardItem> = ({ name, age, email, phone, id }) => {
   return (
-    <CardContainer>
+    <CardContainer id={id}>
       <CardHeader>
         <CardName>{name}</CardName>
         <CardAge>{age} yo</CardAge>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import Form from "./components/MemberForm/MemberForm";
-import { getLocalStorageData } from './utils/localStorageUtils';
+import MemberForm from "./components/MemberForm/MemberForm";
+import { getLocalStorageData, saveLocalStorageData } from './utils/localStorageUtils';
 import { BoardData } from './shared/types';
 import { BOARD_DATA_KEY, BOARD_SECTIONS } from './shared/constants'; 
 import Board from './components/Board/Board';
@@ -24,12 +24,17 @@ function App() {
     setBoardData(data);
   }, []);
 
+  const updateBoardData = (newBoardData: BoardData) => {
+    setBoardData(newBoardData);
+    saveLocalStorageData(BOARD_DATA_KEY, newBoardData);
+  };
+
   return (
     <AppContainer>
       <Header>
         <b>Kanban Board</b>
       </Header>
-      <Form />
+      <MemberForm updateBoardData={updateBoardData} />
       <Board boardData={boardData} boardSections={BOARD_SECTIONS} />
     </AppContainer>
   );
