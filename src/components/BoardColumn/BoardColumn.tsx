@@ -9,9 +9,9 @@ import {
 import { BoardColumnProps } from '../../shared/types';
 import Card from '../Card/Card';
 
-const BoardColumn: React.FC<BoardColumnProps> = ({ header, items }) => {
+const BoardColumn: React.FC<BoardColumnProps> = ({ header, items, backgroundColor }) => {
   return (
-    <Column>
+    <Column backgroundColor={backgroundColor}>
       <ColumnHeaderContainer>
       <ColumnHeader>{header}</ColumnHeader>
       <ColumnCount>{items.length}</ColumnCount>
@@ -19,6 +19,7 @@ const BoardColumn: React.FC<BoardColumnProps> = ({ header, items }) => {
       <Section>
         {items.map((item, index) => (
            <Card
+            id={item.id}
             key={index}
             name={item.name}
             age={item.age}

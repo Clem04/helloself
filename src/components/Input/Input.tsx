@@ -1,7 +1,8 @@
 import React, { ChangeEvent } from 'react';
-import { ReusableInputProps } from '../../shared/types';
+import { InputProps } from '../../shared/types';
+import { InputContainer, InputLabel, InputField, InputError } from './InputStyles';
 
-const ReusableInput: React.FC<ReusableInputProps> = ({ label, name, type, validate, errorMessage, value, onChange }) => {
+const Input: React.FC<InputProps> = ({ label, name, type, validate, errorMessage, value, onChange }) => {
   const [error, setError] = React.useState<string>('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -14,9 +15,9 @@ const ReusableInput: React.FC<ReusableInputProps> = ({ label, name, type, valida
   };
 
   return (
-    <div style={{ marginBottom: '15px' }}>
-      <label htmlFor={name}>{label}</label>
-      <input
+    <InputContainer>
+      <InputLabel htmlFor={name}>{label}</InputLabel>
+      <InputField
         type={type}
         id={name}
         name={name}
@@ -24,9 +25,9 @@ const ReusableInput: React.FC<ReusableInputProps> = ({ label, name, type, valida
         onChange={handleChange}
         style={{ borderColor: error ? 'red' : 'black' }}
       />
-      {error && <div style={{ color: 'red' }}>{errorMessage}</div>}
-    </div>
+      {error && <InputError style={{ color: 'red' }}>{errorMessage}</InputError>}
+    </InputContainer>
   );
 };
 
-export default ReusableInput;
+export default Input;

@@ -1,6 +1,6 @@
 import { BOARD_SECTIONS } from "./constants";
 
-export interface ReusableInputProps {
+export interface InputProps {
   label: string;
   name: string;
   type: string;
@@ -10,7 +10,12 @@ export interface ReusableInputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+export interface MemberFormProps {
+  updateBoardData: (newBoardData: BoardData) => void;
+}
 export interface BoardItem {
+  id: string;
+  title?: string;
   name: string;
   age: number;
   email: string;
@@ -32,4 +37,5 @@ export interface BoardProps {
 export interface BoardColumnProps {
   header: string;
   items: BoardItem[];
+  backgroundColor?: string;
 }
