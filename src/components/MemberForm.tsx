@@ -3,8 +3,7 @@ import Input from './Input';
 import { validateTitle, validateName, validateAge, validateEmail, validatePhone } from '../validation';
 import { initializeLocalStorage, getLocalStorageData, saveLocalStorageData } from '../localStorageUtils';
 import { BoardData } from '../types';
-
-const BOARD_DATA_KEY = 'boardData';
+import { BOARD_DATA_KEY } from '../constants'
 
 const defaultBoardData: BoardData = {
   unclaimed: [],

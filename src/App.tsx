@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import "./App.css";
 import Form from "./components/MemberForm";
+import { getLocalStorageData } from './localStorageUtils';
+import { BoardData } from './types';
+import { BOARD_DATA_KEY, BOARD_SECTIONS } from './constants'; 
 
 function App() {
+  const [boardData, setBoardData] = useState<BoardData>({
+    unclaimed: [],
+    firstContact: [],
+    preparingWorkOffer: [],
+    sentToTherapist: []
+  });
+
+  useEffect(() => {
+    const data = getLocalStorageData(BOARD_DATA_KEY, {
+      unclaimed: [],
+      firstContact: [],
+      preparingWorkOffer: [],
+      sentToTherapist: []
+    });
+    setBoardData(data);
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -34,56 +54,80 @@ function App() {
                 flexBasis: "100%",
               }}
             >
-              <b>Unclaimed</b>
+              <b>{BOARD_SECTIONS.UNCLAIMED}</b>
               <div
                 style={{
                   background: "blue",
                   border: "1px solid white",
                   height: "100%",
                 }}
-              ></div>
+              >
+                {boardData.unclaimed.map((item, index) => (
+                  <div key={index} style={{ marginBottom: "10px", color: "white" }}>
+                    {JSON.stringify(item)}
+                  </div>
+                ))}
+              </div>
             </div>
             <div
               style={{
                 flexBasis: "100%",
               }}
             >
-              <b>First Contact</b>
+              <b>{BOARD_SECTIONS.FIRST_CONTACT}</b>
               <div
                 style={{
                   background: "blue",
                   border: "1px solid white",
                   height: "100%",
                 }}
-              ></div>
+              >
+                {boardData.firstContact.map((item, index) => (
+                  <div key={index} style={{ marginBottom: "10px", color: "white" }}>
+                    {JSON.stringify(item)}
+                  </div>
+                ))}
+              </div>
             </div>
             <div
               style={{
                 flexBasis: "100%",
               }}
             >
-              <b>Preparing Work Offer</b>
+              <b>{BOARD_SECTIONS.PREPARING_WORK_OFFER}</b>
               <div
                 style={{
                   background: "blue",
                   border: "1px solid white",
                   height: "100%",
                 }}
-              ></div>
+              >
+                {boardData.preparingWorkOffer.map((item, index) => (
+                  <div key={index} style={{ marginBottom: "10px", color: "white" }}>
+                    {JSON.stringify(item)}
+                  </div>
+                ))}
+              </div>
             </div>
             <div
               style={{
                 flexBasis: "100%",
               }}
             >
-              <b>Send to Therapists</b>
+              <b>{BOARD_SECTIONS.SENT_TO_THERAPISTS}</b>
               <div
                 style={{
                   background: "blue",
                   border: "1px solid white",
                   height: "100%",
                 }}
-              ></div>
+              >
+                {boardData.sentToTherapist.map((item, index) => (
+                  <div key={index} style={{ marginBottom: "10px", color: "white" }}>
+                    {JSON.stringify(item)}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
