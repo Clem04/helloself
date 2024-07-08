@@ -1,29 +1,15 @@
-import React, { FormEvent, useState, useEffect } from 'react';
+import React, { FormEvent, useState } from 'react';
 import Input from '../Input/Input';
 import { validateTitle, validateName, validateAge, validateEmail, validatePhone } from '../../validation';
-import { initializeLocalStorage, getLocalStorageData, saveLocalStorageData } from '../../utils/localStorageUtils';
 import { BoardData, BoardItem } from '../../shared/types';
-import { BOARD_DATA_KEY } from '../../shared/constants';
 import { createNewItem } from '../../utils/uniqueIdUtils';
+import { FormContainer, FormHeader, InputsContainer, FormButton } from './MemberFormStyles';
 import { MemberFormProps } from '../../shared/types';
-
-const defaultBoardData: BoardData = {
-  unclaimed: [],
-  firstContact: [],
-  preparingWorkOffer: [],
-  sentToTherapist: []
-};
-
+import { getLocalStorageData } from '../../utils/localStorageUtils';
+import { BOARD_DATA_KEY } from '../../shared/constants';
+import sampleBoardData
+ from '../../shared/sampleData';
 const MemberForm: React.FC<MemberFormProps> = ({ updateBoardData }) => {
-
-  const [boardData, setBoardData] = useState<BoardData>(defaultBoardData);
-
-  useEffect(() => {
-    initializeLocalStorage(BOARD_DATA_KEY, defaultBoardData);
-    const data = getLocalStorageData(BOARD_DATA_KEY, defaultBoardData);
-    setBoardData(data);
-  }, []);
-
   const [title, setTitle] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [age, setAge] = useState<string>('');
@@ -41,6 +27,7 @@ const MemberForm: React.FC<MemberFormProps> = ({ updateBoardData }) => {
 
     // Create an object with the form data
     const newMember: Omit<BoardItem, 'id'> = {
+      title,
       name,
       age: parseInt(age, 10),
       email,
@@ -51,13 +38,15 @@ const MemberForm: React.FC<MemberFormProps> = ({ updateBoardData }) => {
     const newItem = createNewItem(newMember);
 
     // Get current board data from local storage
-    const updatedBoardData = { ...boardData };
-    updatedBoardData.unclaimed.push(newItem);
+    const currentData = getLocalStorageData(BOARD_DATA_KEY, sampleBoardData);
+
+    // Update the board data
+    const updatedBoardData: BoardData = {
+      ...currentData,
+      unclaimed: [...currentData.unclaimed, newItem]
+    };
 
     // Save the updated board data back to local storage
-    saveLocalStorageData(BOARD_DATA_KEY, updatedBoardData);
-
-    // Update the state with the new board data
     updateBoardData(updatedBoardData);
 
     // Reset the form
@@ -70,63 +59,57 @@ const MemberForm: React.FC<MemberFormProps> = ({ updateBoardData }) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        margin: '30px',
-        gap: '15px',
-      }}
-    >
-      <b>Form</b>
-      <Input
-        label="Title:"
-        name="title"
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        validate={validateTitle}
-        errorMessage="Title must be at least 3 characters long"
-      />
-      <Input
-        label="Name:"
-        name="name"
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        validate={validateName}
-        errorMessage="Name is required"
-      />
-      <Input
-        label="Age:"
-        name="age"
-        type="text"
-        value={age}
-        onChange={(e) => setAge(e.target.value)}
-        validate={validateAge}
-        errorMessage="Age must be a number"
-      />
-      <Input
-        label="Email:"
-        name="email"
-        type="text"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        validate={validateEmail}
-        errorMessage="Invalid email address"
-      />
-      <Input
-        label="Phone:"
-        name="phone"
-        type="text"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-        validate={validatePhone}
-        errorMessage="Phone number must be 10 digits"
-      />
-      <button type="submit">Submit</button>
-    </form>
+    <FormContainer onSubmit={handleSubmit}>
+      <FormHeader>Add New Member</FormHeader>
+      <InputsContainer>
+        <Input
+          label="Title:"
+          name="title"
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          validate={validateTitle}
+          errorMessage="Title must be at least 3 characters long"
+        />
+        <Input
+          label="Name:"
+          name="name"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          validate={validateName}
+          errorMessage="Name is required"
+        />
+        <Input
+          label="Age:"
+          name="age"
+          type="text"
+          value={age}
+          onChange={(e) => setAge(e.target.value)}
+          validate={validateAge}
+          errorMessage="Age must be a number"
+        />
+        <Input
+          label="Email:"
+          name="email"
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          validate={validateEmail}
+          errorMessage="Invalid email address"
+        />
+        <Input
+          label="Phone:"
+          name="phone"
+          type="text"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          validate={validatePhone}
+          errorMessage="Phone number must be 10 digits"
+        />
+        <FormButton type="submit">Submit</FormButton>
+      </InputsContainer>
+    </FormContainer>
   );
 };
 

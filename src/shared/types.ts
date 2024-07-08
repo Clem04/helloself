@@ -1,6 +1,6 @@
 import { BOARD_SECTIONS } from "./constants";
 
-export interface ReusableInputProps {
+export interface InputProps {
   label: string;
   name: string;
   type: string;
@@ -15,6 +15,7 @@ export interface MemberFormProps {
 }
 export interface BoardItem {
   id: string;
+  title?: string;
   name: string;
   age: number;
   email: string;

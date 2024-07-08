@@ -23,7 +23,7 @@ export const ColumnCount = styled.div`
   justify-content: center;
   width: 30px;
   height: 30px;
-  background-color: white;
+  background-color: #F5F5F5;
   border-radius: 50%;
   font-size: 14px;
   color: #333;
