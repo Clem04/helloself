@@ -2,8 +2,9 @@ import React, { FormEvent, useState, useEffect } from 'react';
 import Input from '../Input/Input';
 import { validateTitle, validateName, validateAge, validateEmail, validatePhone } from '../../validation';
 import { initializeLocalStorage, getLocalStorageData, saveLocalStorageData } from '../../utils/localStorageUtils';
-import { BoardData } from '../../shared/types';
-import { BOARD_DATA_KEY } from '../../shared/constants'
+import { BoardData, BoardItem } from '../../shared/types';
+import { BOARD_DATA_KEY } from '../../shared/constants';
+import { createNewItem } from '../../utils/uniqueIdUtils';
 
 const defaultBoardData: BoardData = {
   unclaimed: [],
@@ -13,9 +14,12 @@ const defaultBoardData: BoardData = {
 };
 
 const MemberForm: React.FC = () => {
+  const [boardData, setBoardData] = useState<BoardData>(defaultBoardData);
 
   useEffect(() => {
     initializeLocalStorage(BOARD_DATA_KEY, defaultBoardData);
+    const data = getLocalStorageData(BOARD_DATA_KEY, defaultBoardData);
+    setBoardData(data);
   }, []);
 
   const [title, setTitle] = useState<string>('');
@@ -27,23 +31,32 @@ const MemberForm: React.FC = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
+    // Check if any field is empty
+    if (!title || !name || !age || !email || !phone) {
+      alert('All fields are required. Please fill in all fields.');
+      return;
+    }
+
     // Create an object with the form data
-    const newMember = {
-      title,
+    const newMember: Omit<BoardItem, 'id'> = {
       name,
       age: parseInt(age, 10),
       email,
       phone
     };
 
-    // Get current board data from local storage
-    const boardData = getLocalStorageData(BOARD_DATA_KEY, defaultBoardData);
+    // Create a new item with a unique ID
+    const newItem = createNewItem(newMember);
 
-    // Add new member to the "unclaimed" column
-    boardData.unclaimed.push(newMember);
+    // Get current board data from local storage
+    const updatedBoardData = { ...boardData };
+    updatedBoardData.unclaimed.push(newItem);
 
     // Save the updated board data back to local storage
-    saveLocalStorageData(BOARD_DATA_KEY, boardData);
+    saveLocalStorageData(BOARD_DATA_KEY, updatedBoardData);
+
+    // Update the state with the new board data
+    setBoardData(updatedBoardData);
 
     // Reset the form
     setTitle('');
