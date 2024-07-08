@@ -37,4 +37,5 @@ export interface BoardProps {
 export interface BoardColumnProps {
   header: string;
   items: BoardItem[];
+  backgroundColor?: string;
 }
