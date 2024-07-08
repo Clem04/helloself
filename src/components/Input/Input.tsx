@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import { ReusableInputProps } from '../types';
+import { ReusableInputProps } from '../../shared/types';
 
 const ReusableInput: React.FC<ReusableInputProps> = ({ label, name, type, validate, errorMessage, value, onChange }) => {
   const [error, setError] = React.useState<string>('');

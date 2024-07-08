@@ -1,3 +1,5 @@
+import { BOARD_SECTIONS } from "./constants";
+
 export interface ReusableInputProps {
   label: string;
   name: string;
@@ -15,3 +17,12 @@ export interface BoardData {
   sentToTherapist: object[];
 }
 
+export interface BoardProps {
+  boardData: BoardData;
+  boardSections: typeof BOARD_SECTIONS;
+}
+
+export interface BoardColumnProps {
+  header: string;
+  items: any[];
+}

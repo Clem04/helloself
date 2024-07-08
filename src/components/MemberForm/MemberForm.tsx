@@ -1,9 +1,9 @@
 import React, { FormEvent, useState, useEffect } from 'react';
-import Input from './Input';
-import { validateTitle, validateName, validateAge, validateEmail, validatePhone } from '../validation';
-import { initializeLocalStorage, getLocalStorageData, saveLocalStorageData } from '../localStorageUtils';
-import { BoardData } from '../types';
-import { BOARD_DATA_KEY } from '../constants'
+import Input from '../Input/Input';
+import { validateTitle, validateName, validateAge, validateEmail, validatePhone } from '../../validation';
+import { initializeLocalStorage, getLocalStorageData, saveLocalStorageData } from '../../utils/localStorageUtils';
+import { BoardData } from '../../shared/types';
+import { BOARD_DATA_KEY } from '../../shared/constants'
 
 const defaultBoardData: BoardData = {
   unclaimed: [],
@@ -12,7 +12,7 @@ const defaultBoardData: BoardData = {
   sentToTherapist: []
 };
 
-const Form: React.FC = () => {
+const MemberForm: React.FC = () => {
 
   useEffect(() => {
     initializeLocalStorage(BOARD_DATA_KEY, defaultBoardData);
@@ -45,7 +45,7 @@ const Form: React.FC = () => {
     // Save the updated board data back to local storage
     saveLocalStorageData(BOARD_DATA_KEY, boardData);
 
-    // Optionally, you can reset the form or display a success message
+    // Reset the form
     setTitle('');
     setName('');
     setAge('');
@@ -115,4 +115,4 @@ const Form: React.FC = () => {
   );
 };
 
-export default Form;
+export default MemberForm;
